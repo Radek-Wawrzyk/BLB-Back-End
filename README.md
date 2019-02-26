@@ -5,6 +5,8 @@ Baltic League Back-End REST API server based on Node.js + Express.js, and NoSQL 
 | ----------- | -------- | ----------- |
 | POST | /api/users |  Add user to the database |
 | GET | /api/users |  Retrieves all users from database |
+| POST | /api/teams |  Add team to the database |
+| GET | /api/teams |  Retrieves all teams from database |
 
 ### Install
 
