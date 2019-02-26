@@ -1,7 +1,7 @@
 {
   "name": "back-end",
   "version": "1.0.0",
-  "description": "",
+  "description": "Baltic League Back-End REST API server based on Node.js + Express.js, and NoSQL Mongo Database.",
   "main": "index.js",
   "scripts": {
     "build": "rimraf ./dist && babel ./src -d ./dist",
@@ -25,5 +25,13 @@
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "rimraf": "^2.6.2"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Radek-Wawrzyk/BLB-Back-End.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Radek-Wawrzyk/BLB-Back-End/issues"
+  },
+  "homepage": "https://github.com/Radek-Wawrzyk/BLB-Back-End#readme"
 }

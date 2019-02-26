@@ -6,6 +6,7 @@ import babelPolyfill from 'babel-polyfill';
 import { notFound, catchErrors } from './middlewares/errors';
 import cors from 'cors';
 import Users from './routes/users';
+import Teams from './routes/teams';
 
 // Connect to database
 import dbConfig from './config/database';
@@ -26,6 +27,7 @@ app.use(bodyParser.json());
 
 // routes config
 app.use('/api/users', Users());
+app.use('/api/teams', Teams());
 
 // errors handling
 app.use(notFound);
