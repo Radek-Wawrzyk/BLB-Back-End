@@ -10,6 +10,10 @@ var _bodyParser = require('body-parser');
 
 var _bodyParser2 = _interopRequireDefault(_bodyParser);
 
+var _expressFileupload = require('express-fileupload');
+
+var _expressFileupload2 = _interopRequireDefault(_expressFileupload);
+
 var _register = require('babel-core/register');
 
 var _register2 = _interopRequireDefault(_register);
@@ -27,6 +31,10 @@ var _cors2 = _interopRequireDefault(_cors);
 var _users = require('./routes/users');
 
 var _users2 = _interopRequireDefault(_users);
+
+var _teams = require('./routes/teams');
+
+var _teams2 = _interopRequireDefault(_teams);
 
 var _database = require('./config/database');
 
@@ -48,12 +56,14 @@ _mongoose2.default.connection.on('error', function (err) {
 
 var app = (0, _express2.default)();
 
+app.use((0, _expressFileupload2.default)());
 app.use((0, _cors2.default)());
 app.use(_bodyParser2.default.urlencoded({ extended: false }));
 app.use(_bodyParser2.default.json());
 
 // routes config
 app.use('/api/users', (0, _users2.default)());
+app.use('/api/teams', (0, _teams2.default)());
 
 // errors handling
 app.use(_errors.notFound);

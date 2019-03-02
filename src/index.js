@@ -1,6 +1,7 @@
 import express from 'express';
 import { join } from 'path';
 import bodyParser from 'body-parser';
+import fileUpload from 'express-fileupload';
 import register from 'babel-core/register';
 import babelPolyfill from 'babel-polyfill';
 import { notFound, catchErrors } from './middlewares/errors';
@@ -21,6 +22,7 @@ mongoose.connection.on('error', (err) => {
 
 const app = express();
 
+app.use(fileUpload());
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
