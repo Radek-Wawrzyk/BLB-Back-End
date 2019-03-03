@@ -40,9 +40,17 @@ export default {
     return res.status(200).send({data: team, message: `Team was saved`});
   },
 
-  async findAll(req, res, next) {
-    const teams = await Teams.find();
-
+  async find(req, res, next) {
+    var teams;
+    if(req.body.id)
+      try{
+		teams = await Teams.findById(req.body.id);
+	  }catch(err){
+		res.status(500).send({data:"Team not found"});
+	  }
+    else
+      teams = await Teams.find();
+ 
     return res.status(200).send({data: teams});
   },
   

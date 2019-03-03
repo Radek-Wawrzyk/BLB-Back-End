@@ -3,8 +3,15 @@ import mongoose from 'mongoose';
 const Team = mongoose.Schema({
     name: String,
     imgUrl: String,
-    stats: {},
-    players: {},
+    stats: {
+		wins: Number,
+		looses: Number,
+	},
+    players: [{
+		id: String,
+		name: String,
+		imgUrl: String
+	}],
 });
 
 export default mongoose.model('Teams', Team);

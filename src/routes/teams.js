@@ -9,7 +9,7 @@ export default () => {
   api.post('/', catchAsync(teamsController.update));
 
   //GET /api/teams
-  api.get('/', catchAsync(teamsController.findAll));
+  api.get('/', catchAsync(teamsController.find));
   
   //GET /api/teams/photo
   api.get('/photo', catchAsync(teamsController.getPhoto));
