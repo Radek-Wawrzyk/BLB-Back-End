@@ -1,11 +1,9 @@
 import Players from '../models/player';
-import Teams from '../models/team';
+import teams from '../controllers/teamsController';
 import fs from 'fs'
 
 export default {
   async update(req, res, next) {
-	//TODO adding, changing, removing from team list, insert data about team
-	  
 	var imgUrl = 'def';
 	if(req.files && req.files.photo){
 	  imgUrl = Math.random().toString(36).substr(2, 9);
@@ -18,36 +16,47 @@ export default {
 	data.imgUrl = imgUrl;
 	
 	var player;
-	if(req.body.id){
-	  if(req.body.remove){
+	if(data._id){
+	  if(data.remove){
 		try {
-	      await Players.findByIdAndRemove(req.body.id);
+	      player = await Players.findByIdAndDelete(data._id);
+		  if(player.team && player.team._id)
+		    teams.removePlayer(player.team._id, player._id);
 		  return res.status(200).send({data:'Removed successfully'}); 
 	    }catch(error) {
 	      return res.status(500).send({error: 'Player not found!'});
 	    }
 	  }
+	  
 	  if(data.imgUrl == 'def')
 		  delete data.imgUrl;
 	  try {
-	    player = await Players.findByIdAndUpdate(req.body.id, data);
+	    player = await Players.findByIdAndUpdate(data._id, data);
 		if(data.imgUrl)	//remove old image
 		  fs.unlink(process.cwd() + '/photos/players/' + player.imgUrl +'.png', function(err){}); //remove old image
+		if(player.team && player.team._id && data.team && data.team._id)
+		  teams.removePlayer(player.team._id, player._id);
 	  }catch(error) {
 	    return res.status(500).send({error: 'Player not found!'});
 	  }
 	}else
 	  player = await Players.create(data);
 	
+	if(data.team && data.team._id && !data.remove){
+	  var resp = await teams.addPlayer(data.team._id, {"_id": player._id, "name": data.name || player.name, "imgUrl":data.imgUrl || player.imgUrl});
+	  player = await Players.findByIdAndUpdate(data._id||player._id, {"team": resp.data});
+	  if(resp.err)
+		return res.status(500).send({data: player, message: 'Team not found!'});
+	}
 	
     return res.status(200).send({data: player, message: `Player was saved`});
   },
 
   async find(req, res, next) {
 	var data;
-	if(req.body.id){
+	if(req.body._id){
 		try{
-		  data = await Players.findById(req.body.id);
+		  data = await Players.findById(req.body._id);
 		}catch(err){
           return res.status(500).send({data: "Player not found!"})
 		}
@@ -60,12 +69,12 @@ export default {
   },
   
   async getPhoto(req, res, next) {
-	if(!req.body.id)
+	if(!req.body._id)
 		return res.status(500).send({error: 'No requested id!'});
 	
 	var player;
 	try{
-	  player = await Players.findById(req.body.id);
+	  player = await Players.findById(req.body._id);
 	}catch(err){
 	  return res.status(500).send({data: "Player not found!"})
 	}

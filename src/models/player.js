@@ -5,7 +5,7 @@ const Player = mongoose.Schema({
 	imgUrl: String,
 	stats:{},
 	team: {
-		id: String,
+		_id: String,
 		name: String,
 		imgUrl: String
 	}

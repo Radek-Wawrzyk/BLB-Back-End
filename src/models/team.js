@@ -8,7 +8,6 @@ const Team = mongoose.Schema({
 		looses: Number,
 	},
     players: [{
-		id: String,
 		name: String,
 		imgUrl: String
 	}],

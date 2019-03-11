@@ -2,6 +2,27 @@ import Teams from '../models/team';
 import fs from 'fs'
 
 export default {
+  async addPlayer(teamId, playerData){
+	var team;
+	  try{
+		  team = await Teams.findByIdAndUpdate(teamId, {"$push":{"players": playerData}});
+	  }catch(err){
+		  return {'err': "cannot find team!"};
+	  }
+	  if(!team)
+	    return {'err': "cannot find team!"};
+	  return {'data': team};
+  },
+  async removePlayer(teamId, playerId){
+	var team;
+	try{
+		team = await Teams.findByIdAndUpdate(teamId, {"$pull":{"players": {"_id":playerId}}});
+	  }catch(err){
+		return {'err': err};
+	  }
+	return {'data': team};
+  },
+  
   async update(req, res, next) {
 	var imgUrl = 'def';
 	if(req.files && req.files.photo){
@@ -12,6 +33,7 @@ export default {
 	}
 	
 	var data = req.body;
+	delete data.players;
 	data.imgUrl = imgUrl;
 	
 	var team;
