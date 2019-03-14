@@ -1,25 +1,38 @@
 import Teams from '../models/team';
 import fs from 'fs'
+import players from '../controllers/playersController';
 
 export default {
   async addPlayer(teamId, playerData){
 	var team;
-	  try{
-		  team = await Teams.findByIdAndUpdate(teamId, {"$push":{"players": playerData}});
-	  }catch(err){
-		  return {'err': "cannot find team!"};
-	  }
-	  if(!team)
-	    return {'err': "cannot find team!"};
-	  return {'data': team};
+	try{
+	  team = await Teams.findByIdAndUpdate(teamId, {"$push":{"players": playerData}});
+	}catch(err){
+      return {'err': "cannot find team!"};
+	}
+	if(!team)
+	  return {'err': "cannot find team!"};
+	return {'data': team};
   },
   async removePlayer(teamId, playerId){
 	var team;
 	try{
-		team = await Teams.findByIdAndUpdate(teamId, {"$pull":{"players": {"_id":playerId}}});
-	  }catch(err){
-		return {'err': err};
-	  }
+	  team = await Teams.findByIdAndUpdate(teamId, {"$pull":{"players": {"_id":playerId}}});
+	}catch(err){
+	  return {'err': err};
+	}
+	return {'data': team};
+  },
+  async updatePlayer(teamId, playerData){
+	var team;
+	try{
+	  team = await Teams.findByIdAndUpdate(teamId, {"$set":{
+			      'players.$[element].name': playerData.name,
+			      'players.$[element].imgUrl': playerData.imgUrl
+		        }}, {arrayFilters:[{'element._id': playerData._id}]}, function(err, res){ console.log(err, res);});
+	}catch(err){
+	  return {'err': err};
+	}
 	return {'data': team};
   },
   
@@ -50,10 +63,11 @@ export default {
 		  delete data.imgUrl;
 	  try {
 	    team = await Teams.findByIdAndUpdate(req.body.id, data);
+		await players.changeTeamInfo({'_id': req.body.id, 'name': data.name || team.name, 'imgUrl': data.imgUrl || team.imgUrl});
 		if(data.imgUrl)
 		  fs.unlink(process.cwd() + '/photos/teams/' + team.imgUrl +'.png', function(err){}); //remove old image
 	  }catch(error) {
-	    return res.status(500).send({error: 'Team not found!'});
+	    return res.status(500).send({error: error});
 	  }
 	}else{
 	  team = await Teams.create(data);

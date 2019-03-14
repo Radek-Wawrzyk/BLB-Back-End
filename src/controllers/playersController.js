@@ -3,6 +3,12 @@ import teams from '../controllers/teamsController';
 import fs from 'fs'
 
 export default {
+  async changeTeamInfo(teamInfo){
+	  console.log(teamInfo);
+	  
+    await Players.update({"team._id": teamInfo._id}, {'$set': {'team.name': teamInfo.name, 'team.imgUrl': teamInfo.imgUrl}}, {'multi': true});
+  },
+  
   async update(req, res, next) {
 	var imgUrl = 'def';
 	if(req.files && req.files.photo){
@@ -34,8 +40,12 @@ export default {
 	    player = await Players.findByIdAndUpdate(data._id, data);
 		if(data.imgUrl)	//remove old image
 		  fs.unlink(process.cwd() + '/photos/players/' + player.imgUrl +'.png', function(err){}); //remove old image
-		if(player.team && player.team._id && data.team && data.team._id)
-		  teams.removePlayer(player.team._id, player._id);
+		if(player.team && player.team._id)
+		  if(data.team && data.team._id){
+		    teams.removePlayer(player.team._id, player._id);
+		  }else{
+			teams.updatePlayer(player.team._id, {"_id": player._id, "name": data.name || player.name, "imgUrl":data.imgUrl || player.imgUrl});
+		  }
 	  }catch(error) {
 	    return res.status(500).send({error: 'Player not found!'});
 	  }
