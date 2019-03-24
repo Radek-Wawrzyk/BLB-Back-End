@@ -5,10 +5,10 @@ import { catchAsync } from "../middlewares/errors";
 export default () => {
   const api = Router();
 
-  //POST /api/users
+  //POST /api/matches
   api.post('/', catchAsync(matchesController.update));
 
-  //GET /api/users
+  //GET /api/matches
   api.get('/', catchAsync(matchesController.findAll));
 
   return api;

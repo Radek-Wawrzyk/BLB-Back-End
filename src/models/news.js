@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const Match = mongoose.Schema({
+const News = mongoose.Schema({
 	title: String,
 	imgUrl: String,
 	date: Date,
@@ -9,4 +9,4 @@ const Match = mongoose.Schema({
 	}]
 });
 
-export default mongoose.model('Teams', Team);
+export default mongoose.model('News', News);

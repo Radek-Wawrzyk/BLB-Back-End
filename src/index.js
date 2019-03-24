@@ -10,6 +10,7 @@ import Users from './routes/users';
 import Teams from './routes/teams';
 import Players from './routes/players';
 import Matches from './routes/matches';
+import News from './routes/news';
 
 // Connect to database
 import dbConfig from './config/database';
@@ -34,6 +35,7 @@ app.use('/api/users', Users());
 app.use('/api/teams', Teams());
 app.use('/api/players', Players());
 app.use('/api/matches', Matches());
+app.use('/api/news', News());
 
 // errors handling
 app.use(notFound);
