@@ -4,8 +4,6 @@ import fs from 'fs'
 
 export default {
   async changeTeamInfo(teamInfo){
-	  console.log(teamInfo);
-	  
     await Players.update({"team._id": teamInfo._id}, {'$set': {'team.name': teamInfo.name, 'team.imgUrl': teamInfo.imgUrl}}, {'multi': true});
   },
   
@@ -14,7 +12,6 @@ export default {
 	if(req.files && req.files.photo){
 	  imgUrl = Math.random().toString(36).substr(2, 9);
 	  req.files.photo.mv('photos/players/' + imgUrl +'.png', function(err) {
-	    if (err)  console.log(err);
 	  });
 	}
 	
@@ -63,19 +60,17 @@ export default {
   },
 
   async find(req, res, next) {
-	var data;
-	if(req.body._id){
-		try{
-		  data = await Players.findById(req.body._id);
-		}catch(err){
-          return res.status(500).send({data: "Player not found!"})
-		}
-  	  if(!data)
-	    return res.status(500).send({data: "Player not found!"})
-	}else
-		data = await Players.find();
-
-    return res.status(200).send({data: data});
+	var players;
+    if(req.body.id)
+      try{
+		players = await Players.findById(req.body.id);
+	  }catch(err){
+		res.status(500).send({data:"Player not found"});
+	  }
+    else
+      players = await Players.find(req.body);
+ 
+    return res.status(200).send({data: players});
   },
   
   async getPhoto(req, res, next) {

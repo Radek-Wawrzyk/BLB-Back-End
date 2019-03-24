@@ -25,8 +25,16 @@ export default {
   },
 
   async findAll(req, res, next) {
-    const users = await Users.find();
-
+    var users;
+    if(req.body.id)
+      try{
+		users = await Users.findById(req.body.id);
+	  }catch(err){
+		res.status(500).send({data:"User not found"});
+	  }
+    else
+      users = await Users.find(req.body);
+ 
     return res.status(200).send({data: users});
   }
 }

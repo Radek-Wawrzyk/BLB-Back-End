@@ -29,7 +29,7 @@ export default {
 	  team = await Teams.findByIdAndUpdate(teamId, {"$set":{
 			      'players.$[element].name': playerData.name,
 			      'players.$[element].imgUrl': playerData.imgUrl
-		        }}, {arrayFilters:[{'element._id': playerData._id}]}, function(err, res){ console.log(err, res);});
+		        }}, {arrayFilters:[{'element._id': playerData._id}]}, function(err, res){});
 	}catch(err){
 	  return {'err': err};
 	}
@@ -40,9 +40,7 @@ export default {
 	var imgUrl = 'def';
 	if(req.files && req.files.photo){
 	  imgUrl = Math.random().toString(36).substr(2, 9);
-	  req.files.photo.mv('photos/teams/' + imgUrl +'.png', function(err) {
-	    if (err)  console.log(err);
-	  });
+	  req.files.photo.mv('photos/teams/' + imgUrl +'.png', function(err) {});
 	}
 	
 	var data = req.body;
@@ -85,7 +83,7 @@ export default {
 		res.status(500).send({data:"Team not found"});
 	  }
     else
-      teams = await Teams.find();
+      teams = await Teams.find(req.body);
  
     return res.status(200).send({data: teams});
   },

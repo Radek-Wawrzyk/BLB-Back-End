@@ -9,6 +9,7 @@ import cors from 'cors';
 import Users from './routes/users';
 import Teams from './routes/teams';
 import Players from './routes/players';
+import Matches from './routes/matches';
 
 // Connect to database
 import dbConfig from './config/database';
@@ -32,6 +33,7 @@ app.use(bodyParser.json());
 app.use('/api/users', Users());
 app.use('/api/teams', Teams());
 app.use('/api/players', Players());
+app.use('/api/matches', Matches());
 
 // errors handling
 app.use(notFound);
