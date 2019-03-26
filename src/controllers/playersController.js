@@ -8,6 +8,9 @@ export default {
   },
   
   async update(req, res, next) {
+	if(!req.userInfo || !req.userInfo.permissions || !req.userInfo.permissions.players)
+		return res.status(500).send({error: 'Permission deined!'});
+	
 	var imgUrl = 'def';
 	if(req.files && req.files.photo){
 	  imgUrl = Math.random().toString(36).substr(2, 9);

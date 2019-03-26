@@ -25,6 +25,8 @@ mongoose.connection.on('error', (err) => {
 
 const app = express();
 
+app.set('secretKey', 'K4UgOiCggY');
+
 app.use(fileUpload());
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));

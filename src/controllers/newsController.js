@@ -2,6 +2,9 @@ import News from '../models/news';
 
 export default {
   async update(req, res, next) {
+	if(!req.userInfo || !req.userInfo.permissions || !req.userInfo.permissions.news)
+		return res.status(500).send({error: 'Permission deined!'});
+	
 	if(req.body.id){
 	  if(req.body.remove){
 	    try {
