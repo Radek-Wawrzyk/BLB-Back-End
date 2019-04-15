@@ -12,5 +12,7 @@ export default () => {
   //GET /api/news
   api.get('/', catchAsync(newsController.findAll));
 
+  //GET /api/news/fetchFB
+  api.get('/fetchFB', catchAsync(newsController.fetchFB));
   return api;
 }

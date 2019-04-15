@@ -1,4 +1,5 @@
 import News from '../models/news';
+import FB from 'fb';
 
 export default {
   async update(req, res, next) {
@@ -36,8 +37,17 @@ export default {
 		res.status(500).send({data:"News not found"});
 	  }
     else
-      news = await News.find(req.body);
+      news = await News.find(req.body).sort({'date': -1}).limit(req.body.limit || 15);
  
     return res.status(200).send({data: news});
+  },
+  
+  async fetchFB(req, res, next) {
+	FB.setAccessToken(req.body.fbAccessToken);
+    FB.api('/'+req.body.fbPageID+'/posts', function (FBres) {
+	  if(!FBres || FBres.error)
+		return res.status(400).send({data: !FBres ? 'error occurred' : FBres.error});
+	  return res.status(200).send({data: FBres});
+	});
   }
 }
