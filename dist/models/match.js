@@ -14,7 +14,7 @@ var Match = _mongoose2.default.Schema({
 	date: Date,
 	loc: String,
 	facts: [{
-		type: Number, //TODO nubers
+		type: Number, //TODO types
 		player: {
 			name: String //id is by default
 		},
@@ -39,7 +39,8 @@ var Match = _mongoose2.default.Schema({
 		}]
 	},
 	score: { hosts: Number, guests: Number },
-	held: Boolean
+	held: Boolean,
+	round: Number
 });
 
 exports.default = _mongoose2.default.model('Matches', Match);
