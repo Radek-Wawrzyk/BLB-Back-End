@@ -41,6 +41,7 @@ $ npm run build
 
 ## User
 Users data:
+``` json
 {
     name: String,
     surName: String,
@@ -49,17 +50,18 @@ Users data:
     email: String,
 	password: String, //md5
 	permissions: {
-		teams: Boolean,		//write
-		players: Boolean,	//write
-		news: Boolean,		//write
-		matches: Boolean,	//write
-		users: Boolean		//read/write
+		teams: Boolean,
+		players: Boolean,
+		news: Boolean,
+		matches: Boolean,
+		users: Boolean
 	}
 }
-
+```
 
 ## Team
 Teams data:
+``` json
 {
     name: String,
     imgUrl: String,
@@ -72,10 +74,12 @@ Teams data:
 		imgUrl: String
 	}],
 }
+```
 
 
 ## Player
 Player data:
+``` json
 {
 	name: String,
 	imgUrl: String,
@@ -86,10 +90,12 @@ Player data:
 		imgUrl: String
 	}
 }
+```
 
 
 ## Match
-Matches data
+Matches data:
+``` json
 {
     date: Date,
     loc: String,
@@ -122,10 +128,12 @@ Matches data
 	held: Boolean,
 	round: Number
 }
+```
 
 
 ## News
 News data:
+``` json
 {
 	title: String,
 	imgUrl: String,
@@ -133,4 +141,5 @@ News data:
 	content: String,
 	comments: [{in future}]
 }
+```
 
