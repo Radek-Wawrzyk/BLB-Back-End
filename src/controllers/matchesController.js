@@ -39,5 +39,16 @@ export default {
       matches = await Matches.find(req.body);
  
     return res.status(200).send({data: matches});
+  },
+  
+  async findUpcoming(req, res, next){
+     var matches;
+    try{
+	  matches = await Matches.find({'date':{'$gt':Date.now()}}, null, {'sort': 'date'});
+    }catch(err){
+	  res.status(500).send({data:"Match not found"});
+    }
+ 
+    return res.status(200).send({data: matches});
   }
 }

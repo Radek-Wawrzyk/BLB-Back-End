@@ -11,6 +11,9 @@ export default () => {
 
   //GET /api/matches
   api.get('/', catchAsync(matchesController.findAll));
+  
+  //GET /api/matches/upcoming
+  api.get('/upcoming', catchAsync(matchesController.findUpcoming));
 
   return api;
 }

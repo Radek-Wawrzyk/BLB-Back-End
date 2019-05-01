@@ -14,6 +14,7 @@ Baltic League Back-End REST API server based on Node.js + Express.js, and NoSQL 
 | GET | /api/players/photo |  Retrieves photo of player |
 | POST | /api/matches |  Add match to the database  <ul><li>call with '_id' key to modify existing</li><li>call with 'remove' to remove</li></ul> |
 | GET | /api/matches |  Retrieves all matches from database/finds users by criteria in request  |
+| GET | /api/matches/upcoming |  Retrieves all matches sorted from now  |
 | POST | /api/news | Add news to the database <ul><li>call with '_id' key to modify existing</li><li>call with 'remove' to remove</li></ul> |
 | GET | /api/news | Retrieves news feed <ul><li> call with 'limit' to set limid(default 15)</li></ul> |
 | GET | /api/news/fetchFB | Retrieves news feed from fb <ul><li> pass access-token as 'fbAccessToken'</li><li> pass page id as 'fbPageID' </ul> |

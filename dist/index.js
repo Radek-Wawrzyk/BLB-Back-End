@@ -36,6 +36,18 @@ var _teams = require('./routes/teams');
 
 var _teams2 = _interopRequireDefault(_teams);
 
+var _players = require('./routes/players');
+
+var _players2 = _interopRequireDefault(_players);
+
+var _matches = require('./routes/matches');
+
+var _matches2 = _interopRequireDefault(_matches);
+
+var _news = require('./routes/news');
+
+var _news2 = _interopRequireDefault(_news);
+
 var _database = require('./config/database');
 
 var _database2 = _interopRequireDefault(_database);
@@ -56,6 +68,8 @@ _mongoose2.default.connection.on('error', function (err) {
 
 var app = (0, _express2.default)();
 
+app.set('secretKey', 'K4UgOiCggY');
+
 app.use((0, _expressFileupload2.default)());
 app.use((0, _cors2.default)());
 app.use(_bodyParser2.default.urlencoded({ extended: false }));
@@ -64,6 +78,9 @@ app.use(_bodyParser2.default.json());
 // routes config
 app.use('/api/users', (0, _users2.default)());
 app.use('/api/teams', (0, _teams2.default)());
+app.use('/api/players', (0, _players2.default)());
+app.use('/api/matches', (0, _matches2.default)());
+app.use('/api/news', (0, _news2.default)());
 
 // errors handling
 app.use(_errors.notFound);
