@@ -29,7 +29,8 @@ const Match = mongoose.Schema({
 		}]
 	},
 	score:{ hosts: Number, guests: Number},
-	held: Boolean
+	held: Boolean,
+	round: Number
 });
 
 export default mongoose.model('Matches', Match);
