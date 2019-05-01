@@ -1,5 +1,5 @@
 .idea
 node_modules
 .DS_store
-src/config/datebase.js
-dist/config/datebase.js
+src/config/database.js
+dist/config/database.js
