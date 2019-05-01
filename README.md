@@ -39,7 +39,7 @@ $ npm run build
 
 
 
-##User
+## User
 Users data:
 {
     name: String,
@@ -58,7 +58,7 @@ Users data:
 }
 
 
-##Team
+## Team
 Teams data:
 {
     name: String,
@@ -74,7 +74,7 @@ Teams data:
 }
 
 
-##Player
+## Player
 Player data:
 {
 	name: String,
@@ -88,7 +88,7 @@ Player data:
 }
 
 
-##Match
+## Match
 Matches data
 {
     date: Date,
@@ -124,7 +124,7 @@ Matches data
 }
 
 
-##News
+## News
 News data:
 {
 	title: String,
