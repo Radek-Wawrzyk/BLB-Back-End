@@ -4,7 +4,7 @@ const Match = mongoose.Schema({
     date: Date,
     loc: String,
     facts:[{
-		type: Number,				//TODO nubers
+		type: Number,				//TODO types
 		player:{
 			name: String //id is by default
 		},

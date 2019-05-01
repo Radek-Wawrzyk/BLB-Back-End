@@ -36,3 +36,101 @@ $ npm run dev
 ```sh
 $ npm run build
 ```
+
+
+
+##User
+Users data:
+{
+    name: String,
+    surName: String,
+    age: Number,
+    location: String,
+    email: String,
+	password: String, //md5
+	permissions: {
+		teams: Boolean,		//write
+		players: Boolean,	//write
+		news: Boolean,		//write
+		matches: Boolean,	//write
+		users: Boolean		//read/write
+	}
+}
+
+
+##Team
+Teams data:
+{
+    name: String,
+    imgUrl: String,
+    stats: {
+		wins: Number,
+		looses: Number,
+	},
+    players: [{
+		name: String,
+		imgUrl: String
+	}],
+}
+
+
+##Player
+Player data:
+{
+	name: String,
+	imgUrl: String,
+	stats:{},
+	team: {
+		_id: String,
+		name: String,
+		imgUrl: String
+	}
+}
+
+
+##Match
+Matches data
+{
+    date: Date,
+    loc: String,
+    facts:[{
+		type: Number,
+		player:{
+			name: String
+		},
+		player2:{
+			name: String
+		}
+	}],
+	hosts:{
+		_id: String,
+		name: String,
+		players:[{
+			name: String,
+			stats:{}
+		}]
+	},
+	guests:{
+		_id: String,
+		name: String,
+		players:[{
+			name: String,
+			stats:{}
+		}]
+	},
+	score:{ hosts: Number, guests: Number},
+	held: Boolean,
+	round: Number
+}
+
+
+##News
+News data:
+{
+	title: String,
+	imgUrl: String,
+	date: Date,
+	content: String,
+	comments: [{in future}]
+}
+
